@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Cake Checklist</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="title-bar">
+       <br><h1>Cake Checklist</h1> 
+    </div><br>
+
+    <div class="row">
+        <div class="budget-box" id="dotted">
+            <div class="centered">
+                <div class="box">
+                    <h2 class="centered">Cake Budget</h2>
+                    <label for="budget">Budget Price: </label>
+                    <input type="text" id="budget" name="budget" placeholder="enter budget price ($)"><br><br>
+                    <label for="slices">Number of Slices: </label>
+                    <input type="text" id="slices" name="slices" placeholder="enter # of slices"><br><br>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div class="row"> 
+        <div class="specs">
+            <div class="centered">
+                <div class="box">
+                    <h2>Style of Cake</h2>
+                    <input type="radio" name="cake-style" value="traditional">Traditional<br/>
+                    <input type="radio" name="cake-style" value="contemporary">Contemporary<br/>
+                    <input type="radio" name="cake-style" value="dramatic">Dramatic<br/>
+                    <input type="radio" name="cake-style" value="ornate">Ornate<br/>
+                    <input type="radio" name="cake-style" value="simple">Simple<br/>
+                    <input type="radio" name="cake-style" value="regal">Regal<br/>
+                    <input type="radio" name="cake-style" value="unique">Unique<br/><br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="specs">
+            <div class="centered">
+                <div class="box">
+                    <h2>Decorations</h2><h4>$20/slice</h4>
+                    <input type="radio" name="decorations" value="sugar-flowers">Sugar flowers<br/>                        
+                    <input type="radio" name="decorations" value="fresh-flowers">Fresh flowers<br/>
+                    <input type="radio" name="decorations" value="chocolate-shavings">Chocolate shavings<br/>
+                    <input type="radio" name="decorations" value="gold-silver-leaf">Gold or silver leaf<br/>
+                    <input type="radio" name="decorations" value="pearls">Pearls<br/>
+                    <input type="radio" name="decorations" value="latticework">Latticework<br/>
+                    <input type="radio" name="decorations" value="piping">Piping<br/>
+                    <input type="radio" name="decorations" value="cake-top">Cake Top<br/>
+                </div>
+            </div>
+        </div>
+    
+        <div class="specs">
+            <div class="centered">
+                <div class="box">
+                    <h2>Shape & Structure</h2>
+                    <input type="radio" name="shape-structure" value="round">Round &nbsp <b>$20</b><br/>
+                    <input type="radio" name="shape-structure" value="oval">Oval &nbsp&nbsp&nbsp&nbsp <b>$40</b><br/>
+                    <input type="radio" name="shape-structure" value="square">Square &nbsp <b>$30</b><br/>
+                    <input type="radio" name="shape-structure" value="rectangular">Rectangular &nbsp <b>$20</b><br/>
+                    <input type="radio" name="shape-structure" value="heart">Heart &nbsp <b>$50</b><br/>
+                    <input type="radio" name="shape-structure" value="sheet">Sheet &nbsp <b>$40</b><br/>
+                    <input type="radio" name="shape-structure" value="tiered-columns">Tiered (with columns) &nbsp <b>$50</b><br/>                
+                    <input type="radio" name="shape-structure" value="tiered-stacked">Tiered, stacked &nbsp <b>$40</b><br/>
+                    <input type="radio" name="shape-structure" value="cupcakes">Cupcakes &nbsp <b>$20</b><br/>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div class="row">
+        <div class="specs2">
+            <div class="centered">
+                <div class="box">
+                    <h2>Flavours & Fillings</h2><h4>$10/slice</h4>
+                    <input type="radio" name="flavour-fill" value="chocolate">Chocolate<br/>
+                    <input type="radio" name="flavour-fill" value="chocolate-mud">Chocolate mud<br/>
+                    <input type="radio" name="flavour-fill" value="white-chocolate">White Chocolate<br/>
+                    <input type="radio" name="flavour-fill" value="mocha">Mocha<br/>
+                    <input type="radio" name="flavour-fill" value="truffle">Truffle<br/>
+                    <input type="radio" name="flavour-fill" value="mousse">Mousse<br/>
+                    <input type="radio" name="flavour-fill" value="caramel">Caramel<br/>                                
+                    <input type="radio" name="flavour-fill" value="lemon-citrus">Lemon/citrus<br/>
+                    <input type="radio" name="flavour-fill" value="orange">Orange<br/>
+                    <input type="radio" name="flavour-fill" value="carrot">Carrot (spice)<br/>
+                    <input type="radio" name="flavour-fill" value="berries-cream">Berries & whipped cream<br/>
+                </div>
+            </div>
+        </div>
+    
+        <div class="specs2">
+            <div class="centered">
+                <div class="box">
+                    <h2>Colours</h2><h4>$5/slice</h4>
+                    <input type="radio" name="colours" value="white">White<br/>
+                    <input type="radio" name="colours" value="ivory">Ivory<br/>
+                    <input type="radio" name="colours" value="yellow">Yellow<br/>
+                    <input type="radio" name="colours" value="peach">Peach<br/>
+                    <input type="radio" name="colours" value="red">Red<br/>
+                    <input type="radio" name="colours" value="pink">Pink<br/>
+                    <input type="radio" name="colours;" value="lavender">Lavender<br/>
+                </div> 
+            </div>
+        </div>
+
+        <div class="total-box" id="dashed">
+            <div class="centered">
+                <div class="box">
+                    <h2 class="centered">Total</h2>
+                    <label for="total">Sub Total: </label>
+                    <input type="text" id="total" name="total" placeholder="your total"><br><br>
+                    <label for="tax">Tax: </label>
+                    <input type="text" id="tax" name="tax" placeholder="your total with tax"><br><br>
+                    <label for="tprice">Total Price: </label>
+                    <input type="text" id="tprice" name="tprice" placeholder="your total price"><br><br>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+    <script></script>
+
+</body>
+</html>
