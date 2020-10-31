@@ -3,129 +3,232 @@
 <head lang="en">
     <meta charset="utf-8">
     <title>Cake Checklist</title>
-    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="cakeform_calculations.js"></script> <!--links external javascript file-->
+
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        h2 {
+            color: #a32a2a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .box {
+            display: inline-block;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #title-bar {
+            background-color: #eb6e6e;
+            text-align: center;
+            height: 120px;
+            vertical-align: middle;
+            height: 140px;
+            border-radius: 15px;
+        }
+
+        .budget-box {
+            height: 10%;
+            width: 72%;
+            border: 2px solid #a1a1a1;
+            margin-left: 15%;
+            background-color: #d3edf5;
+            border-radius: 5px;
+        }
+
+        .specs {
+            float: left;
+            height: 325px;
+            width: 22%;
+            border: 2px solid #a1a1a1;
+            margin-left: 15%;
+            margin-right: -12%;
+            background-color: #e7ddf0;
+            border-radius: 5px;
+        }
+
+        .specs2 {
+            float: left;
+            height: 400px;
+            width: 22%;
+            border: 2px solid #a1a1a1;
+            margin-left: 15%;
+            margin-right: -12%;
+            background-color: #e7ddf0;
+            border-radius: 5px;
+        }
+
+        .total-box {
+            float: left;
+            height: 400px;
+            width: 22%;
+            border: 2px solid #a1a1a1;
+            margin-left: 15%;
+            margin-right: -12%;
+            background-color: #daf0e0;
+            border-radius: 5px;
+        }
+
+        #dashed {
+            border-style: dashed;
+        }
+
+        #dotted {
+            border-style: dotted;
+        }
+
+        #submit {
+            margin-left: 41%;
+            margin-top: 10%;
+        }
+    </style>
+
 </head>
-<body>
+<body onload="hideTotal()"> <!--the total is hidden when page is loaded-->
 
     <div id="title-bar">
        <br><h1>Cake Checklist</h1> 
     </div><br>
 
-    <div class="row">
-        <div class="budget-box" id="dotted">
-            <div class="centered">
-                <div class="box">
-                    <h2 class="centered">Cake Budget</h2>
-                    <label for="budget">Budget Price: </label>
-                    <input type="text" id="budget" name="budget" placeholder="enter budget price ($)"><br><br>
-                    <label for="slices">Number of Slices: </label>
-                    <input type="text" id="slices" name="slices" placeholder="enter # of slices"><br><br>
+    <form method="POST"> <!--data is hidden from user-->
+        <div class="row">
+            <div class="budget-box" id="dotted">
+                <div class="centered">
+                    <div class="box">
+                        <h2 class="centered">Cake Budget</h2>
+                        <label for="budget">Budget Price: $</label>
+                        <input type="number" min="0" step="0.01" oninput="validity.valid||(value='')" name="budget" id="budget" placeholder="enter budget price" required><br><br> <!--requires user to enter a budget price (positive)-->
+                        <label for="slices">Number of Slices: </label>
+                        <input type="number" onkeypress="return event.charCode >= 48" min="1" step="1" name="slices" id="slices" placeholder="# of slices" onchange="getNumSlices()" required style="width: 90px"> <!--requires user to enter positive whole numbers as the number of slices-->
+                        <br><br>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div><br><br>
+        </div><br><br>
 
-    <div class="row"> 
-        <div class="specs">
-            <div class="centered">
-                <div class="box">
-                    <h2>Style of Cake</h2>
-                    <input type="radio" name="cake-style" value="traditional">Traditional<br/>
-                    <input type="radio" name="cake-style" value="contemporary">Contemporary<br/>
-                    <input type="radio" name="cake-style" value="dramatic">Dramatic<br/>
-                    <input type="radio" name="cake-style" value="ornate">Ornate<br/>
-                    <input type="radio" name="cake-style" value="simple">Simple<br/>
-                    <input type="radio" name="cake-style" value="regal">Regal<br/>
-                    <input type="radio" name="cake-style" value="unique">Unique<br/><br/>
+        <div class="row"> 
+            <div class="specs">
+                <div class="centered"><br>
+                    <h2>Style of Cake</h2><br><br>
+                    <label for="cake-style">Choose one: </label>
+                    <select size="7" name="cake-style" id="cake-style">
+                        <option value="traditional" selected="selected">Traditional</option> <!--makes traditional style default-->
+                        <option value="contemporary">Contemporary</option>
+                        <option value="dramatic">Dramatic</option>
+                        <option value="ornate">Ornate</option>
+                        <option value="simple">Simple</option>
+                        <option value="regal">Regal</option>
+                        <option value="unique">Unique</option>
+                    </select>
                 </div>
             </div>
-        </div>
 
-        <div class="specs">
-            <div class="centered">
-                <div class="box">
-                    <h2>Decorations</h2><h4>$20/slice</h4>
-                    <input type="radio" name="decorations" value="sugar-flowers">Sugar flowers<br/>                        
-                    <input type="radio" name="decorations" value="fresh-flowers">Fresh flowers<br/>
-                    <input type="radio" name="decorations" value="chocolate-shavings">Chocolate shavings<br/>
-                    <input type="radio" name="decorations" value="gold-silver-leaf">Gold or silver leaf<br/>
-                    <input type="radio" name="decorations" value="pearls">Pearls<br/>
-                    <input type="radio" name="decorations" value="latticework">Latticework<br/>
-                    <input type="radio" name="decorations" value="piping">Piping<br/>
-                    <input type="radio" name="decorations" value="cake-top">Cake Top<br/>
+            <div class="specs">
+                <div class="centered">
+                    <div class="box">
+                        <h2>Decorations</h2><h4>$20/slice</h4>
+                        <input type="checkbox" name="decorations" value="sugar-flowers" onchange="calculateTotal()">Sugar flowers<br/> <!--if user selects this option, the total gets updated-->
+                        <input type="checkbox" name="decorations" value="fresh-flowers" onchange="calculateTotal()">Fresh flowers<br/> 
+                        <input type="checkbox" name="decorations" value="chocolate-shavings" onchange="calculateTotal()">Chocolate shavings<br/>
+                        <input type="checkbox" name="decorations" value="gold-silver-leaf" onchange="calculateTotal()">Gold or silver leaf<br/>
+                        <input type="checkbox" name="decorations" value="pearls" onchange="calculateTotal()">Pearls<br/>
+                        <input type="checkbox" name="decorations" value="latticework" onchange="calculateTotal()">Latticework<br/>
+                        <input type="checkbox" name="decorations" value="piping" onchange="calculateTotal()">Piping<br/>
+                        <input type="checkbox" name="decorations" value="cake-top" onchange="calculateTotal()">Cake Top<br/>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        <div class="specs">
-            <div class="centered">
-                <div class="box">
-                    <h2>Shape & Structure</h2>
-                    <input type="radio" name="shape-structure" value="round">Round &nbsp <b>$20</b><br/>
-                    <input type="radio" name="shape-structure" value="oval">Oval &nbsp&nbsp&nbsp&nbsp <b>$40</b><br/>
-                    <input type="radio" name="shape-structure" value="square">Square &nbsp <b>$30</b><br/>
-                    <input type="radio" name="shape-structure" value="rectangular">Rectangular &nbsp <b>$20</b><br/>
-                    <input type="radio" name="shape-structure" value="heart">Heart &nbsp <b>$50</b><br/>
-                    <input type="radio" name="shape-structure" value="sheet">Sheet &nbsp <b>$40</b><br/>
-                    <input type="radio" name="shape-structure" value="tiered-columns">Tiered (with columns) &nbsp <b>$50</b><br/>                
-                    <input type="radio" name="shape-structure" value="tiered-stacked">Tiered, stacked &nbsp <b>$40</b><br/>
-                    <input type="radio" name="shape-structure" value="cupcakes">Cupcakes &nbsp <b>$20</b><br/>
+        
+            <div class="specs">
+                <div class="centered">
+                    <div class="box">
+                        <h2>Shape & Structure</h2>
+                        <input type="radio" name="shape-structure" value="20" required onchange="calculateTotal()">Round &nbsp <b>$20</b><br/> <!--if user selects this option, the total gets updated-->
+                        <input type="radio" name="shape-structure" value="40" onchange="calculateTotal()">Oval &nbsp&nbsp&nbsp&nbsp <b>$40</b><br/>
+                        <input type="radio" name="shape-structure" value="30" onchange="calculateTotal()">Square &nbsp <b>$30</b><br/>
+                        <input type="radio" name="shape-structure" value="20" onchange="calculateTotal()">Rectangular &nbsp <b>$20</b><br/>
+                        <input type="radio" name="shape-structure" value="50" onchange="calculateTotal()">Heart &nbsp <b>$50</b><br/>
+                        <input type="radio" name="shape-structure" value="40" onchange="calculateTotal()">Sheet &nbsp <b>$40</b><br/>
+                        <input type="radio" name="shape-structure" value="50" onchange="calculateTotal()">Tiered (with columns) &nbsp <b>$50</b><br/>                
+                        <input type="radio" name="shape-structure" value="40" onchange="calculateTotal()">Tiered, stacked &nbsp <b>$40</b><br/>
+                        <input type="radio" name="shape-structure" value="20" onchange="calculateTotal()">Cupcakes &nbsp <b>$20</b><br/>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div><br><br>
+        </div><br><br>
 
-    <div class="row">
-        <div class="specs2">
-            <div class="centered">
-                <div class="box">
-                    <h2>Flavours & Fillings</h2><h4>$10/slice</h4>
-                    <input type="radio" name="flavour-fill" value="chocolate">Chocolate<br/>
-                    <input type="radio" name="flavour-fill" value="chocolate-mud">Chocolate mud<br/>
-                    <input type="radio" name="flavour-fill" value="white-chocolate">White Chocolate<br/>
-                    <input type="radio" name="flavour-fill" value="mocha">Mocha<br/>
-                    <input type="radio" name="flavour-fill" value="truffle">Truffle<br/>
-                    <input type="radio" name="flavour-fill" value="mousse">Mousse<br/>
-                    <input type="radio" name="flavour-fill" value="caramel">Caramel<br/>                                
-                    <input type="radio" name="flavour-fill" value="lemon-citrus">Lemon/citrus<br/>
-                    <input type="radio" name="flavour-fill" value="orange">Orange<br/>
-                    <input type="radio" name="flavour-fill" value="carrot">Carrot (spice)<br/>
-                    <input type="radio" name="flavour-fill" value="berries-cream">Berries & whipped cream<br/>
+        <div class="row">
+            <div class="specs2">
+                <div class="centered">
+                    <div class="box">
+                        <h2>Flavours & Fillings</h2>
+                        <h4>$10/slice</h4>
+                        <input type="checkbox" name="flavour-fill" value="chocolate" onchange="calculateTotal()">Chocolate<br/> <!--if user selects this option, the total gets updated-->
+                        <input type="checkbox" name="flavour-fill" value="chocolate-mud" onchange="calculateTotal()">Chocolate mud<br/>
+                        <input type="checkbox" name="flavour-fill" value="white-chocolate" onchange="calculateTotal()">White Chocolate<br/>
+                        <input type="checkbox" name="flavour-fill" value="mocha" onchange="calculateTotal()">Mocha<br/>
+                        <input type="checkbox" name="flavour-fill" value="truffle" onchange="calculateTotal()">Truffle<br/>
+                        <input type="checkbox" name="flavour-fill" value="mousse" onchange="calculateTotal()">Mousse<br/>
+                        <input type="checkbox" name="flavour-fill" value="caramel" onchange="calculateTotal()">Caramel<br/>                                
+                        <input type="checkbox" name="flavour-fill" value="lemon-citrus" onchange="calculateTotal()">Lemon/citrus<br/>
+                        <input type="checkbox" name="flavour-fill" value="orange" onchange="calculateTotal()">Orange<br/>
+                        <input type="checkbox" name="flavour-fill" value="carrot" onchange="calculateTotal()">Carrot (spice)<br/>
+                        <input type="checkbox" name="flavour-fill" value="berries-cream" onchange="calculateTotal()">Berries & whipped cream<br/>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        <div class="specs2">
-            <div class="centered">
-                <div class="box">
-                    <h2>Colours</h2><h4>$5/slice</h4>
-                    <input type="radio" name="colours" value="white">White<br/>
-                    <input type="radio" name="colours" value="ivory">Ivory<br/>
-                    <input type="radio" name="colours" value="yellow">Yellow<br/>
-                    <input type="radio" name="colours" value="peach">Peach<br/>
-                    <input type="radio" name="colours" value="red">Red<br/>
-                    <input type="radio" name="colours" value="pink">Pink<br/>
-                    <input type="radio" name="colours;" value="lavender">Lavender<br/>
-                </div> 
-            </div>
-        </div>
-
-        <div class="total-box" id="dashed">
-            <div class="centered">
-                <div class="box">
-                    <h2 class="centered">Total</h2>
-                    <label for="total">Sub Total: </label>
-                    <input type="text" id="total" name="total" placeholder="your total"><br><br>
-                    <label for="tax">Tax: </label>
-                    <input type="text" id="tax" name="tax" placeholder="your total with tax"><br><br>
-                    <label for="tprice">Total Price: </label>
-                    <input type="text" id="tprice" name="tprice" placeholder="your total price"><br><br>
+        
+            <div class="specs2">
+                <div class="centered">
+                    <div class="box">
+                        <h2>Colours</h2><h4>$5/slice</h4>
+                        <input type="checkbox" name="colours" value="white" onchange="calculateTotal()">White<br/> <!--if user selects this option, the total gets updated-->
+                        <input type="checkbox" name="colours" value="ivory" onchange="calculateTotal()">Ivory<br/>
+                        <input type="checkbox" name="colours" value="yellow" onchange="calculateTotal()">Yellow<br/>
+                        <input type="checkbox" name="colours" value="peach" onchange="calculateTotal()">Peach<br/>
+                        <input type="checkbox" name="colours" value="red" onchange="calculateTotal()">Red<br/>
+                        <input type="checkbox" name="colours" value="pink" onchange="calculateTotal()">Pink<br/>
+                        <input type="checkbox" name="colours;" value="lavender" onchange="calculateTotal()">Lavender<br/>
+                    </div> 
                 </div>
             </div>
-        </div>
-    </div><br><br>
 
-    <script></script>
+            <div class="total-box" id="dashed">
+                <div class="centered">
+                    <div class="box">
+                        <h2 class="centered">Total</h2>
+                        <div id="subtotal"></div><br>
+                        <div id="tax"></div><br>
+                        <div id="totalPrice"></div>
+                    </div>
+                </div>
+                <input type="submit" id="submit" value="Submit"> <!--creates a submit button which resets page if all required fields are filled-->
+            </div>
+        </div>
+    </form>
+    </div>
 
 </body>
 </html>
